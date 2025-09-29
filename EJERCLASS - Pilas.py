@@ -2,35 +2,35 @@ class Stack:
   def __init__(self):
     self.stack = []
 
-  def push(self, element):
+  def agregar(self, element):
     self.stack.append(element)
 
-  def pop(self):
-    if self.isEmpty():
+  def eliminar(self):
+    if self.existencia():
       return "Stack is empty"
     return self.stack.pop()
 
-  def peek(self):
-    if self.isEmpty():
+  def ver(self):
+    if self.existencia():
       return "Stack is empty"
     return self.stack[-1]
 
-  def isEmpty(self):
+  def existencia(self):
     return len(self.stack) == 0
 
-  def size(self):
+  def tamano(self):
     return len(self.stack)
-
-# Create a stack
+  
 myStack = Stack()
 
-myStack.push('A')
-myStack.push('B')
-myStack.push('C')
+myStack.agregar('A')
+myStack.agregar('B')
+myStack.agregar('C')
 
 print("Stack: ", myStack.stack)
-print("Pop: ", myStack.pop())
+print("Pop: ", myStack.eliminar())
 print("Stack after Pop: ", myStack.stack)
-print("Peek: ", myStack.peek())
-print("isEmpty: ", myStack.isEmpty())
-print("Size: ", myStack.size())
+print("Peek: ", myStack.ver())
+print("isEmpty: ", myStack.existencia())
+print("Size: ", myStack.tamano())
+
