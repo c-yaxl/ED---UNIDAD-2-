@@ -1,0 +1,99 @@
+class Pila:
+    def __init__(self, capacidad=8):
+        self.capacidad = capacidad
+        self.pila = [None] * capacidad
+        self.tope = 0  # 0 significa pila vacía
+    
+    def insertar(self, elemento):
+        if self.tope >= self.capacidad:
+            print(f"ERROR: Pila llena - No se puede insertar '{elemento}'")
+            return False
+        
+        self.pila[self.tope] = elemento
+        self.tope += 1
+        print(f"Insertado '{elemento}'")
+        self.mostrar_estado()
+        return True
+    
+    def eliminar(self):
+        if self.tope <= 0:
+            print("ERROR: Pila vacía - No se puede eliminar")
+            return None
+        
+        elemento = self.pila[self.tope - 1]
+        self.pila[self.tope - 1] = None
+        self.tope -= 1
+        print(f"Eliminado '{elemento}'")
+        self.mostrar_estado()
+        return elemento
+    
+    def mostrar_estado(self):
+        print("┌" + "─" * 29 + "┐")
+        print(f"│ Estado actual de la pila    │")
+        print(f"│ Tope = {self.tope}                    │")
+        print("├" + "─" * 29 + "┤")
+        
+        if self.tope == 0:
+            print("│          PILA VACÍA         │")
+        else:
+            for i in range(self.capacidad - 1, -1, -1):
+                if i < self.tope:
+                    if i == self.tope - 1:
+                        print(f"│ [{i}] '{self.pila[i]}' ← TOPE              │")
+                    else:
+                        print(f"│ [{i}] '{self.pila[i]}'                     │")
+                else:
+                    print(f"│ [{i}] [Vacío]                 │")
+        
+        print("└" + "─" * 29 + "┘")
+        print()
+
+def simular_operaciones():
+    print("=" * 50)
+    print("SIMULACIÓN DE OPERACIONES EN PILA")
+    print("Capacidad máxima: 8 elementos")
+    print("Estado inicial: PILA VACÍA (TOPE=0)")
+    print("=" * 50)
+    print()
+    
+    # Crear pila vacía
+    pila = Pila()
+    pila.mostrar_estado()
+    
+    # Secuencia de operaciones
+    operaciones = [
+        ("a. Insertar(PILA, 'X')", lambda: pila.insertar('X')),
+        ("b. Insertar(PILA, 'Y')", lambda: pila.insertar('Y')),
+        ("c. Eliminar(PILA, Z)", lambda: pila.eliminar()),
+        ("d. Eliminar(PILA, T)", lambda: pila.eliminar()),
+        ("e. Eliminar(PILA, U)", lambda: pila.eliminar()),
+        ("f. Insertar(PILA, 'V')", lambda: pila.insertar('V')),
+        ("g. Insertar(PILA, 'W')", lambda: pila.insertar('W')),
+        ("h. Eliminar(PILA, p)", lambda: pila.eliminar()),
+        ("i. Insertar(PILA, 'R')", lambda: pila.insertar('R'))
+    ]
+    
+    for descripcion, operacion in operaciones:
+        print("~" * 50)
+        print(descripcion)
+        print("~" * 50)
+        operacion()
+        print()
+
+if __name__ == "__main__":
+    simular_operaciones()
+    
+    
+    """¿Con cuántos elementos quedó la pila? La pila quedó con 2 elementos: [V, R]
+    
+    
+    ¿Hubo algún caso de error (desbordamiento o subdesbordamiento)?
+    
+    SÍ, hubo un error de SUBDESBORDAMIENTO en la operación e. eliminar(PILA, U).
+    En la operación e "Eliminar(PILA, U)" se produjo un error de subdesbordamiento (underflow) 
+    porque se intentó eliminar un elemento cuando la pila se encontraba vacía, ya que en las 
+    operaciones anteriores se habían eliminado todos los elementos existentes dejando la pila con TOPE = 0, 
+    lo que hace imposible realizar cualquier operación de eliminación hasta que se inserte al menos un nuevo elemento
+    
+    \
+    """
